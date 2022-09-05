@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Клиенты</title>
+    <style>
+        input{
+            width: 165px;
+        }
+        .left {
+            float: left;
+            height: 100vh;
+            position: relative;
+            /*			background-color: #ffff66;*/
+        }
+        .osnova {
+            padding-left: 30px;
+        }
+        .menu {
+            height: 50vh;
+            text-align: left;
+        }
+        .main {
+            width: 80vw;
+            height: 100vh;
+            display:inline-block;
+            text-align: left;
+            padding: 20px;
+        }
+        .card{
+            display:inline-block;
+            margin: 15px;
+            text-align: left;
+        }
+        .wrapper{
+            padding: 30px;
+        }
+    </style>
+</head>
+<body style="padding: 20px;">
+
+<div class="left">
+    <div class="menu">
+        <div class="wrapper">
+            <form method="GET" action="/authors">
+                <input type="submit" value="Авторы">
+            </form>
+            <form method="GET" action="/books">
+                <input type="submit" value="Книги">
+            </form>
+            <form method="GET" action="/people">
+                <input type="submit" value="Клиенты">
+            </form>
+        </div>
+        <br/>
+        <div class="wrapper">
+            <form th:method="GET" th:action="@{/people/new}">
+                <input type="submit" value="Новый клиент">
+            </form>
+            <form th:method="GET" th:action="@{/}">
+                <input type="submit" value="Главная">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="osnova">
+    <div class="main">
+        <div class="wrapper">
+
+            <form method="GET" action="/people" th:object="${searchParams}">
+                <label for="search">Поиск: </label>
+                <select th:field="*{idSearch}" id="search">
+                    <option value="1">По паспорту</option>
+                    <option value="2">По имени</option>
+                    <option value="3">По дате рождения</option>
+                    <option value="4">По номеру телефона</option>
+                </select>
+                <input th:field="*{searchString}" type="search"/>
+                <input type="submit" value="Найти"/>
+            </form>
+
+            <div th:each="person : ${people}" class="card">
+                <a th:text="${person.getPassport()}"/>
+                <br/>
+                <a th:text="${person.getName() + ' ' + person.getSurname()}"/>
+                <br/>
+                <a th:text="${'+7' + person.getPhone()}"/>
+                <br/>
+                <a th:text="${person.getBirthday()}"/>
+                <br/>
+                <form th:method="GET" th:action="@{/people/{id}/open(id=${person.getId()})}">
+                    <input type="submit" value="Открыть">
+                </form>
+                <br/>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

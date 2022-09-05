@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Клиент</title>
+    <style>
+        input{
+            width: 165px;
+        }
+        .left {
+            float: left;
+            height: 100vh;
+            position: relative;
+            /*			background-color: #ffff66;*/
+        }
+        .osnova {
+            padding-left: 30px;
+        }
+        .menu {
+            height: 50vh;
+            text-align: left;
+        }
+        .main {
+            width: 80vw;
+            height: 100vh;
+            display:inline-block;
+            text-align: left;
+            padding: 20px;
+        }
+        .card{
+            display:inline-block;
+            margin: 15px;
+            text-align: left;
+        }
+        .wrapper{
+            padding: 30px;
+        }
+    </style>
+</head>
+<body style="padding: 20px;">
+
+<div class="left">
+    <div class="menu">
+        <div class="wrapper">
+            <form method="GET" action="/authors">
+                <input type="submit" value="Авторы">
+            </form>
+            <form method="GET" action="/books">
+                <input type="submit" value="Книги">
+            </form>
+            <form method="GET" action="/people">
+                <input type="submit" value="Клиенты">
+            </form>
+        </div>
+        <br/>
+        <div class="wrapper">
+            <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+                <input type="submit" value="Изменить">
+            </form>
+            <form th:method="PATCH" th:action="@{/people/{id}/delete(id=${person.getId()})}">
+                <input type="submit" value="Удалить">
+            </form>
+            <form th:method="GET" th:action="@{/}">
+                <input type="submit" value="Главная">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="osnova">
+    <div class="main">
+        <div class="wrapper">
+
+            <a th:text="${person.getPassport()}"/>
+            <br/>
+            <a th:text="${person.getName() + ' ' + person.getSurname()}"/>
+            <br/>
+            <a th:text="${person.getBirthday()}"/>
+            <br/>
+            <a th:text="${'+7' + person.getPhone()}"/>
+            <br/>
+            <br/>
+            <div th:if="${not #lists.isEmpty(nowHaveRotationList)}">
+                Сейчас читает:
+                <br/>
+                <div th:each="nowrotation:${nowHaveRotationList}">
+                    <form th:method="GET" th:action="@{/people/{id}/backBook/{book}(id=${nowrotation.getIdPeople()}, book=${nowrotation.getIdBook()})}">
+                        <a th:href="@{/books/{id}/open(id=${nowrotation.getIdBook()})}" th:text="${nowrotation.getDate() + ' ' + nowrotation.getAuthorName() + ' ' + nowrotation.getAuthorSurname() + ' - ' + nowrotation.getBooksName()}"/>
+                        <input type="submit" value="Вернуть книжку">
+                    </form>
+                </div>
+            </div>
+            <br/>
+            <div th:if="${not #lists.isEmpty(rotationList)}">
+                История операций:
+                <div th:each="rotation:${rotationList}">
+                    <a th:href="@{/books/{id}/open(id=${rotation.getIdBook()})}" th:text="${rotation.getDate() + ' ' + rotation.getAuthorName() + ' ' + rotation.getAuthorSurname() + ' - ' + rotation.getBooksName()  + ' : ' + rotation.getStatus()}"/>
+                </div>
+            </div>
+            <br/>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

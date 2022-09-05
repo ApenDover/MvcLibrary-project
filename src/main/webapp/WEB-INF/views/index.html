@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAIN</title>
+    <style>
+        input{
+            width: 165px;
+        }
+        .left {
+            float: left;
+            height: 100vh;
+            position: relative;
+            /*			background-color: #ffff66;*/
+        }
+        .osnova {
+            padding-left: 30px;
+        }
+        .menu {
+            height: 50vh;
+            text-align: left;
+        }
+        .main {
+            width: 80vw;
+            height: 100vh;
+            display:inline-block;
+            text-align: left;
+            padding: 20px;
+        }
+        .card{
+            display:inline-block;
+            margin: 15px;
+            text-align: left;
+        }
+        .wrapper{
+            padding: 30px;
+        }
+    </style>
+</head>
+<body style="padding: 20px;">
+
+<div class="left">
+    <div class="menu">
+        <div class="wrapper">
+            <form method="GET" action="/authors">
+                <input type="submit" value="Авторы">
+            </form>
+            <form method="GET" action="/books">
+                <input type="submit" value="Книги">
+            </form>
+            <form method="GET" action="/people">
+                <input type="submit" value="Клиенты">
+            </form>
+        </div>
+        <br/>
+        <div class="wrapper">
+            <form th:method="GET" th:action="@{/people/new}">
+                <input type="submit" value="Новый клиент">
+            </form>
+            <form th:method="GET" th:action="@{/}">
+                <input type="submit" value="Главная">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="osnova">
+    <div class="main">
+        <div class="wrapper">
+
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга</title>
+    <style>
+        input{
+            width: 165px;
+        }
+        .left {
+            float: left;
+            height: 100vh;
+            position: relative;
+            /*			background-color: #ffff66;*/
+        }
+        .osnova {
+            padding-left: 30px;
+        }
+        .menu {
+            height: 50vh;
+            text-align: left;
+        }
+        .main {
+            width: 80vw;
+            height: 100vh;
+            display:inline-block;
+            text-align: left;
+            padding: 20px;
+        }
+        .card{
+            display:inline-block;
+            margin: 15px;
+            text-align: left;
+        }
+        .wrapper{
+            padding: 30px;
+        }
+    </style>
+</head>
+<body style="padding: 20px;">
+
+<div class="left">
+    <div class="menu">
+        <div class="wrapper">
+            <form method="GET" action="/authors">
+                <input type="submit" value="Авторы">
+            </form>
+            <form method="GET" action="/books">
+                <input type="submit" value="Книги">
+            </form>
+            <form method="GET" action="/people">
+                <input type="submit" value="Клиенты">
+            </form>
+        </div>
+        <br/>
+        <div class="wrapper">
+            <form method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
+                <input type="submit" value="Изменить"/>
+            </form>
+            <form th:method="PATCH" th:action="@{/books/{id}/delete(id=${book.getId()})}">
+                <input type="submit" value="Удалить"/>
+            </form>
+            <form th:method="GET" th:action="@{/}">
+                <input type="submit" value="Главная">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="osnova">
+    <div class="main">
+        <div class="wrapper">
+
+            <a th:text="${book.getNameBook()}"/>
+            <br/>
+            <a th:text="${book.getYearBook()}"/>
+            <br/>
+            <a th:href="@{/authors/{id}/open(id=${book.getIdAuthor()})}" th:text="${book.getNameAuthor() + ' ' + book.getSurnameAuthor()}"/>
+            <br/>
+            <br/>
+            <br/>
+
+            <div th:if="${not #lists.isEmpty(nowHaveRotationList)}" th:each="nowrotation:${nowHaveRotationList}">
+                Книгу забрал:
+                <br/>
+                <br/>
+                <a th:href="@{/people/{id}/open(id=${nowrotation.getIdPeople()})}" th:text="${nowrotation.getPeopleName() + ' ' + nowrotation.getPeopleSurname() + ' : ' + nowrotation.getPassport()}"/>
+            </div>
+
+            <form th:if="${#lists.isEmpty(nowHaveRotationList)}" th:method="POST" th:action="@{/books/{id}/open/addperson(id=${book.getId()})}">
+                <br/>
+                <select th:object="${person}" th:field="*{id}" size="3" id="persontest">
+                    <option th:each="person:${people}" th:value="${person.getId()}" th:text="${person.getPassport() + ' : ' + person.getName() + ' ' + person.getSurname()}"/>
+                </select>
+                <br/>
+                <input type="submit" value="Выдать">
+                <br/>
+            </form>
+<br/>
+<br/>
+            <div th:if="${howManyTake} != 0">
+                Последним брал:
+                <a th:text="${whoWasLast.getName() + ' ' + whoWasLast.getSurname()  + ' ' + whoWasLast.getPhone()}"/>
+                <br/>
+                Книгу брали раз: <a th:text="${howManyTake}"/>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en">
+<meta charset="UTF-8">
+<title>Автор</title>
+<style>
+    input{
+        width: 165px;
+    }
+    .left {
+        float: left;
+        height: 100vh;
+        position: relative;
+        /*			background-color: #ffff66;*/
+    }
+    .osnova {
+        padding-left: 30px;
+    }
+    .menu {
+        height: 50vh;
+        text-align: left;
+    }
+    .main {
+        width: 80vw;
+        height: 100vh;
+        display:inline-block;
+        text-align: left;
+        padding: 20px;
+    }
+    .card{
+        display:inline-block;
+        margin: 15px;
+        text-align: left;
+    }
+    .wrapper{
+        padding: 30px;
+    }
+</style>
+</head>
+<body style="padding: 20px;">
+
+<div class="left">
+    <div class="menu">
+        <div class="wrapper">
+            <form method="GET" action="/authors">
+                <input type="submit" value="Авторы">
+            </form>
+            <form method="GET" action="/books">
+                <input type="submit" value="Книги">
+            </form>
+            <form method="GET" action="/people">
+                <input type="submit" value="Клиенты">
+            </form>
+        </div>
+        <br/>
+        <div class="wrapper">
+            <form method="GET" th:action="@{/authors/{id}/edit(id=${author.getId()})}">
+                <input type="submit" value="Изменить"/>
+            </form>
+            <form method="GET" th:action="@{/books/new/{authorId}(authorId=${author.getId()})}">
+                <input type="submit" value="Добавить книгу"/>
+            </form>
+            <form th:method="PATCH" th:action="@{/authors/{id}/delete(id=${author.getId()})}">
+                <input type="submit" value="Удалить"/>
+            </form>
+            <form th:method="GET" th:action="@{/}">
+                <input type="submit" value="Главная">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="osnova">
+    <div class="main">
+        <div class="wrapper">
+
+            <a th:text="${author.getName() + ' ' + author.getSurname()}">text</a>
+            <br/>
+            <a th:text="${author.getBirthday()}">text</a>
+            <br/>
+            <br/>
+            <div th:if="${not #lists.isEmpty(bookList)}">
+                Книги:
+                <div th:each="book:${bookList}">
+                    <a th:href="@{/books/{id}/open(id=${book.getId()})}" th:text="${book.getName() + ' ' + book.getYear()}"/>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+</html>

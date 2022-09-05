@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменить автора</title>
+    <style>
+        input{
+            width: 165px;
+        }
+        .left {
+            float: left;
+            height: 100vh;
+            position: relative;
+            /*			background-color: #ffff66;*/
+        }
+        .osnova {
+            padding-left: 30px;
+        }
+        .menu {
+            height: 50vh;
+            text-align: left;
+        }
+        .main {
+            width: 80vw;
+            height: 100vh;
+            display:inline-block;
+            text-align: left;
+            padding: 20px;
+        }
+        .card{
+            display:inline-block;
+            margin: 15px;
+            text-align: left;
+        }
+        .wrapper{
+            padding: 30px;
+        }
+    </style>
+</head>
+<body style="padding: 20px;">
+
+<div class="left">
+    <div class="menu">
+        <div class="wrapper">
+            <form method="GET" action="/authors">
+                <input type="submit" value="Авторы">
+            </form>
+            <form method="GET" action="/books">
+                <input type="submit" value="Книги">
+            </form>
+            <form method="GET" action="/people">
+                <input type="submit" value="Клиенты">
+            </form>
+        </div>
+        <br/>
+        <div class="wrapper">
+            <form th:method="GET" th:action="@{/authors/{id}/open(id=${author.getId()})}">
+                <input type="submit" value="Отменить">
+            </form>
+            <form th:method="GET" th:action="@{/}">
+                <input type="submit" value="Главная">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="osnova">
+    <div class="main">
+        <div class="wrapper">
+
+            <form th:method="PATCH" th:action="@{/authors/{id}(id=${author.getId()})}" th:object="${author}">
+                <label for="bookname">Имя: </label>
+                <input type="text" id="bookname" th:field="*{name}">
+                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+                <br/>
+                <label for="author">Фамилия: </label>
+                <input type="text" id="author" th:field="*{surname}">
+                <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</div>
+                <br/>
+                <label for="year">Дата Рождения: </label>
+                <input type="text" id="year" th:field="*{birthday}">
+                <div style="color:red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Name Error</div>
+                <br/>
+                <input type="submit" value="Изменить">
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
