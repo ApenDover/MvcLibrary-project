@@ -18,7 +18,6 @@ public class PeopleController {
 
     private PersonDAO personDAO;
     private BookRotationDAO bookRotationDAO;
-//    private final PersonValidator personValidator;
 
 
     @Autowired
@@ -30,12 +29,10 @@ public class PeopleController {
 
 
     @GetMapping("/people")
-    public String people(Model model, @ModelAttribute("searchParams")SearchParams searchParams)
-    {
+    public String people(Model model, @ModelAttribute("searchParams") SearchParams searchParams) {
         model.addAttribute("people", personDAO.peopleList());
 
-        if (Objects.equals(searchParams.getSearchString(), ""))
-        {
+        if (Objects.equals(searchParams.getSearchString(), "")) {
             model.addAttribute("people", personDAO.peopleList());
         }
         if (!Objects.equals(searchParams.getSearchString(), null)) {
@@ -47,14 +44,12 @@ public class PeopleController {
     }
 
     @GetMapping("/people/new")
-    public String newPerson(@ModelAttribute("person") Person person)
-    {
+    public String newPerson(@ModelAttribute("person") Person person) {
         return "/people/new";
     }
 
     @PostMapping("/people")
-    public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult)
-    {
+    public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "people/new";
         personDAO.save(person);
@@ -62,15 +57,13 @@ public class PeopleController {
     }
 
     @GetMapping("/people/{id}/edit")
-    public String editPerson(@PathVariable("id") int id, Model model)
-    {
+    public String editPerson(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personDAO.getPerson(id));
         return "people/edit";
     }
 
     @PatchMapping("/people/{id}")
-    public String update(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person, BindingResult bindingResult)
-    {
+    public String update(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "people/edit";
         }
@@ -80,15 +73,13 @@ public class PeopleController {
     }
 
     @PatchMapping("/people/{id}/delete")
-    public String delete(@PathVariable("id") int id)
-    {
+    public String delete(@PathVariable("id") int id) {
         personDAO.delete(id);
         return "redirect:/people";
     }
 
     @GetMapping("/people/{id}/open")
-    public String open(@PathVariable("id") int id, Model model)
-    {
+    public String open(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personDAO.getPerson(id));
         model.addAttribute("rotationList", bookRotationDAO.bookRotationByIdPerson(id));
         model.addAttribute("nowHaveRotationList", bookRotationDAO.bookRotationNowByIdPerson(id));
@@ -96,10 +87,9 @@ public class PeopleController {
     }
 
     @GetMapping("/people/{id}/backBook/{book}")
-    public String backBook(@PathVariable("id") int idperson, @PathVariable("book") int idbook)
-    {
+    public String backBook(@PathVariable("id") int idperson, @PathVariable("book") int idbook) {
         bookRotationDAO.backBook(idperson, idbook);
-        return "redirect:/people/" + idperson +"/open";
+        return "redirect:/people/" + idperson + "/open";
     }
 
 }

@@ -9,7 +9,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dac4648a-bad2-429c-a7b9-d8953c2ff02c" name="Changes" comment="" />
+    <list default="true" id="dac4648a-bad2-429c-a7b9-d8953c2ff02c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/DAO/AuthorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/DAO/AuthorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/DAO/BookDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/DAO/BookDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/DAO/BookRotationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/DAO/BookRotationDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/DAO/PersonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/DAO/PersonDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/config/SpringConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/config/SpringConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/controllers/AuthorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/controllers/AuthorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/controllers/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/controllers/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/controllers/PeopleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/controllers/PeopleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/controllers/mainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/controllers/mainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/model/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/model/BookRotationJoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/model/BookRotationJoin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tsandrey/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tsandrey/model/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/author/authors.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/author/authors.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/book/books.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/book/books.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +69,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.11764705" />
@@ -194,6 +210,7 @@
       <workItem from="1660743590141" duration="1798000" />
       <workItem from="1660857801054" duration="1042000" />
       <workItem from="1662359806744" duration="8978000" />
+      <workItem from="1670003286851" duration="305000" />
     </task>
     <task id="LOCAL-00001" summary="test commit">
       <created>1662405510796</created>
@@ -225,6 +242,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />

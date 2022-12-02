@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.tsandrey.model.SearchParams;
 import ru.tsandrey.model.Author;
 import ru.tsandrey.model.Book;
 import ru.tsandrey.model.JoinBook;
+import ru.tsandrey.model.SearchParams;
 
 import java.util.List;
 
@@ -21,13 +21,11 @@ public class BookDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<JoinBook> allBooks()
-    {
+    public List<JoinBook> allBooks() {
         return jdbcTemplate.query("SELECT books.id as id, books.name as nameBook, books.year as yearBook, author.name as nameAuthor, author.surname as surnameAuthor FROM books INNER JOIN author ON books.idauthor = author.id", new BeanPropertyRowMapper<>(JoinBook.class));
     }
 
-    public JoinBook joinBookById(int id)
-    {
+    public JoinBook joinBookById(int id) {
         return jdbcTemplate.query("SELECT books.id as id, author.id as idAuthor, books.name as nameBook, books.year as yearBook, author.name as nameAuthor, author.surname as surnameAuthor FROM books INNER JOIN author ON books.idauthor = author.id WHERE books.id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(JoinBook.class)).stream().findAny().orElse(null);
     }
 
@@ -44,8 +42,7 @@ public class BookDAO {
         jdbcTemplate.update("UPDATE books SET name = ?, idauthor = ?, year = ? WHERE books.id = ?", book.getName(), book.getIdAuthor(), book.getYear(), id);
     }
 
-    public void remove(int id)
-    {
+    public void remove(int id) {
         jdbcTemplate.update("DELETE FROM books WHERE id = ?", id);
     }
 
@@ -62,13 +59,11 @@ public class BookDAO {
     }
 
     public List<JoinBook> findBooks(SearchParams searchParams) {
-        if (searchParams.getIdSearch() == 1)
-        {
+        if (searchParams.getIdSearch() == 1) {
             String findParam = "%" + searchParams.getSearchString() + "%";
             return jdbcTemplate.query("SELECT books.id as id, author.id as idAuthor, books.name as nameBook, books.year as yearBook, author.name as nameAuthor, author.surname as surnameAuthor FROM books INNER JOIN author ON books.idauthor = author.id WHERE author.name ~~* ?", new Object[]{findParam}, new BeanPropertyRowMapper<>(JoinBook.class));
         }
-        if (searchParams.getIdSearch() == 2)
-        {
+        if (searchParams.getIdSearch() == 2) {
             String findParam = "%" + searchParams.getSearchString() + "%";
             return jdbcTemplate.query("SELECT books.id as id, author.id as idAuthor, books.name as nameBook, books.year as yearBook, author.name as nameAuthor, author.surname as surnameAuthor FROM books INNER JOIN author ON books.idauthor = author.id WHERE books.name ~~* ?", new Object[]{findParam}, new BeanPropertyRowMapper<>(JoinBook.class));
         }
@@ -76,8 +71,7 @@ public class BookDAO {
             try {
                 int findParam = Integer.parseInt(searchParams.getSearchString());
                 return jdbcTemplate.query("SELECT books.id as id, author.id as idAuthor, books.name as nameBook, books.year as yearBook, author.name as nameAuthor, author.surname as surnameAuthor FROM books INNER JOIN author ON books.idauthor = author.id WHERE books.year = ?", new Object[]{findParam}, new BeanPropertyRowMapper<>(JoinBook.class));
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 return jdbcTemplate.query("SELECT books.id as id, author.id as idAuthor, books.name as nameBook, books.year as yearBook, author.name as nameAuthor, author.surname as surnameAuthor FROM books INNER JOIN author ON books.idauthor = author.id", new BeanPropertyRowMapper<>(JoinBook.class));
             }
 

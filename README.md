@@ -1,5 +1,5 @@
 # MvcLibrary
-Spring MVC Library project.
+Spring MVC Library pet project.
 - PostgreSQL
 - jdbcTemplate
 - Spring Validation

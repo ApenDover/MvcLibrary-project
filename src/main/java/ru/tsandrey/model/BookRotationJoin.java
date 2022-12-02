@@ -77,8 +77,7 @@ public class BookRotationJoin implements Comparable<BookRotationJoin> {
     public String getStatus() {
         if (status.equals("t")) {
             return "Взял";
-        }
-        else return "Вернул";
+        } else return "Вернул";
     }
 
     public void setStatus(String status) {

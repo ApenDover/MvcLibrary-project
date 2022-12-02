@@ -7,7 +7,6 @@ public class Book {
     private int id;
     @NotEmpty(message = "Введите название")
     private String name;
-//    @NotEmpty(message = "Выберите автора")
     private int idAuthor;
     private int year;
 

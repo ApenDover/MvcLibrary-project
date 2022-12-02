@@ -25,13 +25,11 @@ public class AuthorController {
 
 
     @GetMapping("/authors")
-    public String books(Model model, @ModelAttribute("searchParams")SearchParams searchParams)
-    {
+    public String books(Model model, @ModelAttribute("searchParams") SearchParams searchParams) {
 
         model.addAttribute("authors", authorDAO.authorList());
 
-        if (Objects.equals(searchParams.getSearchString(), ""))
-        {
+        if (Objects.equals(searchParams.getSearchString(), "")) {
             model.addAttribute("authors", authorDAO.authorList());
         }
         if (!Objects.equals(searchParams.getSearchString(), null)) {
@@ -41,14 +39,12 @@ public class AuthorController {
     }
 
     @GetMapping("/authors/new")
-    public String newAuthor(@ModelAttribute("author") Author author)
-    {
+    public String newAuthor(@ModelAttribute("author") Author author) {
         return "/author/new";
     }
 
     @PostMapping("/authors")
-    public String create(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult)
-    {
+    public String create(@ModelAttribute("author") @Valid Author author, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "author/new";
         }
@@ -57,15 +53,13 @@ public class AuthorController {
     }
 
     @GetMapping("/authors/{id}/edit")
-    public String editAuthor(@PathVariable("id") int id, Model model)
-    {
+    public String editAuthor(@PathVariable("id") int id, Model model) {
         model.addAttribute("author", authorDAO.getAuthor(id));
         return "author/edit";
     }
 
     @PatchMapping("/authors/{id}")
-    public String update(@PathVariable("id") int id, @ModelAttribute("author") @Valid Author author, BindingResult bindingResult)
-    {
+    public String update(@PathVariable("id") int id, @ModelAttribute("author") @Valid Author author, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "author/edit";
         }
@@ -74,15 +68,13 @@ public class AuthorController {
     }
 
     @PatchMapping("/authors/{id}/delete")
-    public String delete(@PathVariable("id") int id)
-    {
+    public String delete(@PathVariable("id") int id) {
         authorDAO.delete(id);
         return "redirect:/authors";
     }
 
     @GetMapping("/authors/{id}/open")
-    public String showAuthor(@PathVariable("id") int id, Model model)
-    {
+    public String showAuthor(@PathVariable("id") int id, Model model) {
         model.addAttribute("author", authorDAO.getAuthor(id));
         model.addAttribute("bookList", authorDAO.bookList(id));
         return "author/open";

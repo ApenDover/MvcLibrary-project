@@ -1,20 +1,13 @@
 package ru.tsandrey.DAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowCountCallbackHandler;
 import org.springframework.stereotype.Component;
 import ru.tsandrey.model.BookRotationJoin;
 import ru.tsandrey.model.Person;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Component
@@ -27,21 +20,18 @@ public class BookRotationDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<BookRotationJoin> allRorations()
-    {
+    public List<BookRotationJoin> allRorations() {
         return jdbcTemplate.query("SELECT bookrotation.id as id, idpeople, idbook, date, status, author.name as authorName, author.surname as authorSurname, author.birthday as authorBirthday, books.name as booksName, year, people.name as peopleName, people.surname as peopleSurname, phone, people.birthday as peopleBirthday, passport FROM bookrotation INNER JOIN books ON bookrotation.idbook = books.id INNER JOIN people ON bookrotation.idpeople = people.id INNER JOIN author ON books.idauthor = author.id", new BeanPropertyRowMapper<>(BookRotationJoin.class));
     }
 
-    public List<BookRotationJoin> bookRotationByIdPerson(int id)
-    {
+    public List<BookRotationJoin> bookRotationByIdPerson(int id) {
         List<BookRotationJoin> bookRotationJoinList;
         bookRotationJoinList = jdbcTemplate.query("SELECT bookrotation.id as id, idpeople, idbook, date, status, author.name as authorName, author.surname as authorSurname, author.birthday as authorBirthday, books.name as booksName, year, people.name as peopleName, people.surname as peopleSurname, phone, people.birthday as peopleBirthday, passport FROM bookrotation INNER JOIN books ON bookrotation.idbook = books.id INNER JOIN people ON bookrotation.idpeople = people.id INNER JOIN author ON books.idauthor = author.id WHERE people.id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(BookRotationJoin.class));
         Collections.reverse(bookRotationJoinList);
         return bookRotationJoinList;
     }
 
-    public List<BookRotationJoin> bookRotationByIdBook(int id)
-    {
+    public List<BookRotationJoin> bookRotationByIdBook(int id) {
         return jdbcTemplate.query("SELECT bookrotation.id as id, idpeople, idbook, date, status, author.name as authorName, author.surname as authorSurname, author.birthday as authorBirthday, books.name as booksName, year, people.name as peopleName, people.surname as peopleSurname, phone, people.birthday as peopleBirthday, passport FROM bookrotation INNER JOIN books ON bookrotation.idbook = books.id INNER JOIN people ON bookrotation.idpeople = people.id INNER JOIN author ON books.idauthor = author.id WHERE books.id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(BookRotationJoin.class));
     }
 

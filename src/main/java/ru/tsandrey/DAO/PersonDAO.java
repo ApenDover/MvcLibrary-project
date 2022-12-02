@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.tsandrey.model.Book;
 import ru.tsandrey.model.Person;
 import ru.tsandrey.model.SearchParams;
 
@@ -20,8 +19,7 @@ public class PersonDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Person> peopleList()
-    {
+    public List<Person> peopleList() {
         return jdbcTemplate.query("SELECT * FROM people", new BeanPropertyRowMapper<>(Person.class));
     }
 
@@ -46,26 +44,20 @@ public class PersonDAO {
 
     public List<Person> findPerson(SearchParams searchParams) {
         String param = "%" + searchParams.getSearchString() + "%";
-        if (searchParams.getIdSearch() == 1)
-        {
+        if (searchParams.getIdSearch() == 1) {
             return jdbcTemplate.query("SELECT * FROM people WHERE passport ~~* ?", new Object[]{param}, new BeanPropertyRowMapper<>(Person.class));
         }
-        if (searchParams.getIdSearch() == 2)
-        {
+        if (searchParams.getIdSearch() == 2) {
             return jdbcTemplate.query("SELECT * FROM people WHERE name ~~* ? OR surname ~~* ?", new Object[]{param, param}, new BeanPropertyRowMapper<>(Person.class));
         }
-        if (searchParams.getIdSearch() == 3)
-        {
+        if (searchParams.getIdSearch() == 3) {
             try {
                 return jdbcTemplate.query("SELECT * FROM people WHERE birthday ~~* ?", new Object[]{searchParams.getSearchString()}, new BeanPropertyRowMapper<>(Person.class));
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 return jdbcTemplate.query("SELECT * FROM people", new BeanPropertyRowMapper<>(Person.class));
             }
         }
-        if (searchParams.getIdSearch() == 4)
-        {
+        if (searchParams.getIdSearch() == 4) {
             return jdbcTemplate.query("SELECT * FROM people WHERE phone ~~* ?", new Object[]{param}, new BeanPropertyRowMapper<>(Person.class));
         }
         return null;

@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.tsandrey.model.Author;
 import ru.tsandrey.model.Book;
-import ru.tsandrey.model.Person;
 import ru.tsandrey.model.SearchParams;
 
 import java.sql.Date;
@@ -21,13 +20,11 @@ public class AuthorDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Book> bookList(int id)
-    {
+    public List<Book> bookList(int id) {
         return jdbcTemplate.query("SELECT * FROM books WHERE idauthor = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
     }
 
-    public List<Author> authorList()
-    {
+    public List<Author> authorList() {
         return jdbcTemplate.query("SELECT * FROM author", new BeanPropertyRowMapper<>(Author.class));
     }
 

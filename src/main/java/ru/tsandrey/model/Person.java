@@ -1,11 +1,8 @@
 package ru.tsandrey.model;
 
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import java.sql.Date;
 import java.util.List;
 
 public class Person {

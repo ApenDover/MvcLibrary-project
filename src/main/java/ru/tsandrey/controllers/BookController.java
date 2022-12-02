@@ -30,13 +30,11 @@ public class BookController {
     }
 
     @GetMapping("/books")
-    public String books(@ModelAttribute("searchParams") SearchParams searchParams, Model model)
-    {
+    public String books(@ModelAttribute("searchParams") SearchParams searchParams, Model model) {
 
         model.addAttribute("allBooks", bookDAO.allBooks());
 
-        if (Objects.equals(searchParams.getSearchString(), ""))
-        {
+        if (Objects.equals(searchParams.getSearchString(), "")) {
             model.addAttribute("allBooks", bookDAO.allBooks());
         }
         if (!Objects.equals(searchParams.getSearchString(), null)) {
@@ -46,26 +44,20 @@ public class BookController {
     }
 
     @GetMapping("/books/new")
-    public String newBook(@ModelAttribute("book") Book book, Model model)
-    {
+    public String newBook(@ModelAttribute("book") Book book, Model model) {
         model.addAttribute("authorList", bookDAO.getAuthorList());
         return "book/new";
     }
 
-
-
     @GetMapping("/books/new/{authorId}")
-    public String newBook(@PathVariable("authorId") int authorId, @ModelAttribute("book") Book book, Model model)
-    {
+    public String newBook(@PathVariable("authorId") int authorId, @ModelAttribute("book") Book book, Model model) {
         model.addAttribute("authorList", bookDAO.getAuthorListById(authorId));
         return "book/new";
     }
 
     @PostMapping("/books/{authorId}")
-    public String createWithAuthor(@PathVariable("authorId") int authorId, Model model, @ModelAttribute("book") @Valid Book book, BindingResult bindingResult)
-    {
-        if (bindingResult.hasErrors())
-        {
+    public String createWithAuthor(@PathVariable("authorId") int authorId, Model model, @ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("authorList", bookDAO.getAuthorListById(authorId));
             return "book/new";
         }
@@ -74,10 +66,8 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public String create(Model model, @ModelAttribute("book") @Valid Book book, BindingResult bindingResult)
-    {
-        if (bindingResult.hasErrors())
-        {
+    public String create(Model model, @ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("authorList", bookDAO.getAuthorList());
             return "book/new";
         }
@@ -86,8 +76,7 @@ public class BookController {
     }
 
     @GetMapping("/books/{id}/edit")
-    public String editBook(@PathVariable("id") int id, Model model)
-    {
+    public String editBook(@PathVariable("id") int id, Model model) {
         model.addAttribute("authorName", bookDAO.getAuthor(id));
         model.addAttribute("authorList", bookDAO.getAuthorList());
         model.addAttribute("editBook", bookDAO.getBook(id));
@@ -95,10 +84,8 @@ public class BookController {
     }
 
     @PatchMapping("/books/{id}")
-    public String update(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book, BindingResult bindingResult, Model model)
-    {
-        if (bindingResult.hasErrors())
-        {
+    public String update(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("authorName", bookDAO.getAuthor(id));
             model.addAttribute("authorList", bookDAO.getAuthorList());
             model.addAttribute("editBook", bookDAO.getBook(id));
@@ -109,15 +96,13 @@ public class BookController {
     }
 
     @PatchMapping("/books/{id}/delete")
-    public String delete(@PathVariable("id") int id)
-    {
+    public String delete(@PathVariable("id") int id) {
         bookDAO.remove(id);
         return "redirect:/books";
     }
 
     @GetMapping("/books/{id}/open")
-    public String openBook(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person)
-    {
+    public String openBook(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
         model.addAttribute("book", bookDAO.joinBookById(id));
         model.addAttribute("people", personDAO.peopleList());
         model.addAttribute("nowHaveRotationList", bookRotationDAO.bookRotationNowByIdBook(id));
@@ -127,8 +112,7 @@ public class BookController {
     }
 
     @PostMapping("/books/{id}/open/addperson")
-    public String takeBook(@PathVariable("id") int id, @ModelAttribute("person") Person person)
-    {
+    public String takeBook(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
         bookRotationDAO.giveBook(id, person.getId());
         return "redirect:/books/" + id + "/open";
     }
